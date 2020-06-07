@@ -24,24 +24,8 @@ def dict_factory(cursor, row):
         d[col[0]] = row[idx]
     return d
 
-# Create some test data for our catalog in the form of a list of dictionaries.
-books = [
-    {'id': 0,
-     'weight': '70.20',
-     'date_time': '20.06.2020',
-     },
-    {'id': 1,
-     'weight': '70.80',
-     'date_time': '20.06.2020',
-     },
-    {'id': 2,
-     'weight': '69.90',
-     'date_time': '20.06.2020',
-     },
-    
-]
-
 # DATA STUFF -------------------------------------------------------------------------------------
+conn = sqlite3.connect('database.db')
 
 
 
@@ -52,10 +36,12 @@ def index(name=None):
 #     return render_template('index.html', template_folder=TEMPLATES_PATH)
     return render_template('index.html')
 
+# ROUTES (JSON ENDPOINTS) -------------------------------------------------------------------------------------
+
+
 # URL: http://127.0.0.1:8080/api/list
-@app.route('/api/items/all', methods=['GET'])
+@app.route('/api/json/all', methods=['GET'])
 def api_all():
-    conn = sqlite3.connect('database.db')
     conn.row_factory = dict_factory
     cur = conn.cursor()
     all_books = cur.execute('SELECT * FROM weights;').fetchall()
@@ -63,7 +49,8 @@ def api_all():
 
 
 # Example use: http://127.0.0.1:8080/api/items?id=1
-@app.route('/api/items', methods=['GET'])
+# Example use: http://127.0.0.1:8080/api/items?weight=70,21
+@app.route('/api/json', methods=['GET'])
 def api_filter():
     query_parameters = request.args
     id = query_parameters.get('id')
@@ -83,11 +70,12 @@ def api_filter():
     if not (id or weight or date_time):
         return page_not_found(404)
     query = query[:-4] + ';'
-    conn = sqlite3.connect('database.db')
     conn.row_factory = dict_factory
     cur = conn.cursor()
     results = cur.execute(query, to_filter).fetchall()
     return jsonify(results)
+
+# ROUTES (JSON ENDPOINTS) -------------------------------------------------------------------------------------
 
 @app.errorhandler(404)
 def page_not_found(e):
@@ -96,8 +84,6 @@ def page_not_found(e):
 # ROUTES -------------------------------------------------------------------------------------
 
 app.run(host=HOST, port=PORT)
-
-
 
 # def open_browser():
       # webbrowser.open_new('http://127.0.0.1:' + PORT + '/')
