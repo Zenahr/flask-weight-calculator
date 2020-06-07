@@ -8,6 +8,7 @@ import sqlite3
 
 app=Flask(__name__)
 app.config["DEBUG"]=True
+HOST="192.168.1.63"
 PORT="8080"
 TEMPLATES_PATH=os.path.join(os.getcwd(), "View")
 # print(TEMPLATES_PATH)
@@ -51,35 +52,42 @@ def index(name=None):
 #     return render_template('index.html', template_folder=TEMPLATES_PATH)
     return render_template('index.html')
 
-@app.route('/api/list', methods=['GET'])
+# URL: http://127.0.0.1:8080/api/list
+@app.route('/api/items/all', methods=['GET'])
 def api_all():
-    return jsonify(books)
+    conn = sqlite3.connect('database.db')
+    conn.row_factory = dict_factory
+    cur = conn.cursor()
+    all_books = cur.execute('SELECT * FROM weights;').fetchall()
+    return jsonify(all_books)
+
 
 # Example use: http://127.0.0.1:8080/api/items?id=1
 @app.route('/api/items', methods=['GET'])
-def api_id():
-    # Check if an ID was provided as part of the URL.
-    # If ID is provided, assign it to a variable.
-    # If no ID is provided, display an error in the browser.
-    if 'id' in request.args:
-        id = int(request.args['id'])
-    else:
-        return "Error: No id field provided. Please specify an id."
-
-    # Create an empty list for our results
-    results = []
-
-    # Loop through the data and match results that fit the requested ID.
-    # IDs are unique, but other fields might return many results
-    for book in books:
-        if book['id'] == id:
-            results.append(book)
-
-    # Use the jsonify function from Flask to convert our list of
-    # Python dictionaries to the JSON format.
+def api_filter():
+    query_parameters = request.args
+    id = query_parameters.get('id')
+    weight = query_parameters.get('weight')
+    date_time = query_parameters.get('datetime')
+    query = "SELECT * FROM weights WHERE"
+    to_filter = []
+    if id:
+        query += ' ID=? AND'
+        to_filter.append(id)
+    if weight:
+        query += ' WEIGHT=? AND'
+        to_filter.append(weight)
+    if date_time:
+        query += ' DATE_TIME=? AND'
+        to_filter.append(date_time)
+    if not (id or weight or date_time):
+        return page_not_found(404)
+    query = query[:-4] + ';'
+    conn = sqlite3.connect('database.db')
+    conn.row_factory = dict_factory
+    cur = conn.cursor()
+    results = cur.execute(query, to_filter).fetchall()
     return jsonify(results)
-
-
 
 @app.errorhandler(404)
 def page_not_found(e):
@@ -87,7 +95,7 @@ def page_not_found(e):
 
 # ROUTES -------------------------------------------------------------------------------------
 
-app.run(port=PORT)
+app.run(host=HOST, port=PORT)
 
 
 
