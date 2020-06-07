@@ -12,6 +12,7 @@ app.config["DEBUG"]=True
 HOST="192.168.1.63"
 PORT="8080"
 TEMPLATES_PATH=os.path.join(os.getcwd(), "View")
+DATABASE='databaseBig.db'
 # print(TEMPLATES_PATH)
 
 # SETUP -------------------------------------------------------------------------------------
@@ -28,7 +29,7 @@ def calcAvgSum(rows):
     
     for row in rows:
     #    print(row.keys()) # DEBUG
-       result += float(row['WEIGHT'])
+       result += float(row['weight'])
     result = result / divideBy
     result = round(result, 2)
     return result
@@ -45,7 +46,7 @@ def dict_factory(cursor, row):
     return d
 
 # DATA STUFF -------------------------------------------------------------------------------------
-conn = sqlite3.connect('database.db', check_same_thread=False)
+conn = sqlite3.connect(DATABASE, check_same_thread=False)
 
 
 
@@ -60,12 +61,13 @@ def index():
     cur.execute("select * from weights")
    
     rows = cur.fetchall()
-    avgSum = calcAvgSum(rows)
+    # avgSum = calcAvgSum(rows)
+    avgSum = 0
 
     msg = ""
     if request.method == 'POST':
       try:
-         weightValue = request.form['weightValue']
+         weightValue = request.form['weight']
          timeStamp = time.time()
          cur.execute("INSERT INTO weights (WEIGHT, TIMESTAMP) VALUES(?, ?)",(weightValue, timeStamp) )
          conn.commit()
