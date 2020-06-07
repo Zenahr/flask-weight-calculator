@@ -33,11 +33,16 @@ conn = sqlite3.connect('database.db')
 
 @app.route('/')
 def index(name=None):
-#     return render_template('index.html', template_folder=TEMPLATES_PATH)
-    return render_template('index.html')
+   con = sqlite3.connect("database.db")
+   con.row_factory = sqlite3.Row
+   
+   cur = con.cursor()
+   cur.execute("select * from weights")
+   
+   rows = cur.fetchall()
+   return render_template("index.html", rows=rows)
 
 # ROUTES (JSON ENDPOINTS) -------------------------------------------------------------------------------------
-
 
 # URL: http://127.0.0.1:8080/api/list
 @app.route('/api/json/all', methods=['GET'])
