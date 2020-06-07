@@ -41,11 +41,15 @@ def index():
    
     rows = cur.fetchall()
 
+# Calculate Average Sum of all Weight-Entries -----------------------------------------------------------------
     avgSum = 0
+    divideBy=len(rows)
     for row in rows:
     #    print(row.keys()) # DEBUG
        avgSum += float(row['WEIGHT'])
-    print(avgSum)
+    avgSum = avgSum / divideBy
+    avgSum = round(avgSum, 2)
+# Calculate Average Sum of all Weight-Entries -----------------------------------------------------------------
 
     return render_template("index.html", rows=rows)
 
@@ -104,3 +108,9 @@ app.run(host=HOST, port=PORT)
 #       app.config['TEMPLATES_AUTO_RELOAD']=True
 #       app.run(port=PORT, debug=True,use_reloader=True, host="0.0.0.0")
 #       Timer(1, open_browser).start()
+
+# UTILS ----------------------------------------------------------------
+
+
+
+# UTILS ----------------------------------------------------------------
