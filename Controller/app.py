@@ -32,15 +32,22 @@ conn = sqlite3.connect('database.db')
 # ROUTES -------------------------------------------------------------------------------------
 
 @app.route('/')
-def index(name=None):
-   con = sqlite3.connect("database.db")
-   con.row_factory = sqlite3.Row
+def index():
+    con = sqlite3.connect("database.db")
+    con.row_factory = sqlite3.Row
+
+    cur = con.cursor()
+    cur.execute("select * from weights")
    
-   cur = con.cursor()
-   cur.execute("select * from weights")
-   
-   rows = cur.fetchall()
-   return render_template("index.html", rows=rows)
+    rows = cur.fetchall()
+
+    avgSum = 0
+    for row in rows:
+    #    print(row.keys()) # DEBUG
+       avgSum += float(row['WEIGHT'])
+    print(avgSum)
+
+    return render_template("index.html", rows=rows)
 
 # ROUTES (JSON ENDPOINTS) -------------------------------------------------------------------------------------
 
