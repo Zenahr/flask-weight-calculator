@@ -5,12 +5,13 @@ from flask import Flask, render_template, url_for
 
 app=Flask(__name__)
 PORT="8080"
-TEMPLATES_PATH=os.path.join(os.getcwd(), "View\\templates")
+TEMPLATES_PATH=os.path.join(os.getcwd(), "View")
 # print(TEMPLATES_PATH)
 
 @app.route('/')
 def index(name=None):
-    return render_template('index.html', template_folder=TEMPLATES_ROOT)
+#     return render_template('index.html', template_folder=TEMPLATES_PATH)
+    return render_template('index.html')
 
 
 
