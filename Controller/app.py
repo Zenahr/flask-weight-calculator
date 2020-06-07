@@ -3,6 +3,7 @@ import webbrowser
 from threading import Timer
 from flask import Flask, render_template, url_for, request, jsonify
 import sqlite3
+import time
 
 # SETUP -------------------------------------------------------------------------------------
 
@@ -39,7 +40,7 @@ def dict_factory(cursor, row):
     return d
 
 # DATA STUFF -------------------------------------------------------------------------------------
-conn = sqlite3.connect('database.db')
+conn = sqlite3.connect('database.db', check_same_thread=False)
 
 
 
@@ -48,15 +49,40 @@ conn = sqlite3.connect('database.db')
 @app.route('/')
 def index():
     con = sqlite3.connect("database.db")
-    con.row_factory = sqlite3.Row
+    conn.row_factory = sqlite3.Row
 
-    cur = con.cursor()
+    cur = conn.cursor()
     cur.execute("select * from weights")
    
     rows = cur.fetchall()
     avgSum = calcAvgSum(rows)
 
     return render_template("index.html", rows=rows, avgSum=avgSum)
+
+@app.route('/enternew')
+def new_student():
+   return render_template('student.html')
+
+@app.route('/addrec',methods = ['POST', 'GET'])
+def addrec():
+   msg = ""
+   if request.method == 'POST':
+      try:
+         weightValue = request.form['weightValue']
+         timeStamp = time.time()
+
+         cur = conn.cursor()
+         cur.execute("INSERT INTO weights (WEIGHT, TIMESTAMP) VALUES(?, ?)",(weightValue, timeStamp) )
+         conn.commit()
+         msg = "Record successfully added"
+      except:
+         conn.rollback()
+         msg = "error in insert operation"
+      
+      finally:
+         return render_template("result.html",msg = msg)
+         conn.close()
+
 
 # ROUTES (JSON ENDPOINTS) -------------------------------------------------------------------------------------
 
