@@ -21,6 +21,11 @@ TEMPLATES_PATH=os.path.join(os.getcwd(), "View")
 def calcAvgSum(rows):
     result = 0
     divideBy=len(rows)
+
+    # Edge Case: Database with no records
+    if (len(rows) < 1):
+        divideBy=1
+    
     for row in rows:
     #    print(row.keys()) # DEBUG
        result += float(row['WEIGHT'])
@@ -46,7 +51,7 @@ conn = sqlite3.connect('database.db', check_same_thread=False)
 
 # ROUTES -------------------------------------------------------------------------------------
 
-@app.route('/')
+@app.route('/', methods = ['POST', 'GET'])
 def index():
     con = sqlite3.connect("database.db")
     conn.row_factory = sqlite3.Row
@@ -57,31 +62,21 @@ def index():
     rows = cur.fetchall()
     avgSum = calcAvgSum(rows)
 
-    return render_template("index.html", rows=rows, avgSum=avgSum)
-
-@app.route('/enternew')
-def new_student():
-   return render_template('student.html')
-
-@app.route('/addrec',methods = ['POST', 'GET'])
-def addrec():
-   msg = ""
-   if request.method == 'POST':
+    msg = ""
+    if request.method == 'POST':
       try:
          weightValue = request.form['weightValue']
          timeStamp = time.time()
-
-         cur = conn.cursor()
          cur.execute("INSERT INTO weights (WEIGHT, TIMESTAMP) VALUES(?, ?)",(weightValue, timeStamp) )
          conn.commit()
          msg = "Record successfully added"
       except:
          conn.rollback()
          msg = "error in insert operation"
-      
       finally:
-         return render_template("result.html",msg = msg)
          conn.close()
+
+    return render_template("index.html", rows=rows, avgSum=avgSum, msg = msg)
 
 
 # ROUTES (JSON ENDPOINTS) -------------------------------------------------------------------------------------
