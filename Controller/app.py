@@ -15,6 +15,20 @@ TEMPLATES_PATH=os.path.join(os.getcwd(), "View")
 
 # SETUP -------------------------------------------------------------------------------------
 
+# UTILS ----------------------------------------------------------------
+
+def calcAvgSum(rows):
+    result = 0
+    divideBy=len(rows)
+    for row in rows:
+    #    print(row.keys()) # DEBUG
+       result += float(row['WEIGHT'])
+    result = result / divideBy
+    result = round(result, 2)
+    return result
+
+# UTILS ----------------------------------------------------------------
+
 # DATA STUFF -------------------------------------------------------------------------------------
 
 
@@ -40,18 +54,9 @@ def index():
     cur.execute("select * from weights")
    
     rows = cur.fetchall()
+    avgSum = calcAvgSum(rows)
 
-# Calculate Average Sum of all Weight-Entries -----------------------------------------------------------------
-    avgSum = 0
-    divideBy=len(rows)
-    for row in rows:
-    #    print(row.keys()) # DEBUG
-       avgSum += float(row['WEIGHT'])
-    avgSum = avgSum / divideBy
-    avgSum = round(avgSum, 2)
-# Calculate Average Sum of all Weight-Entries -----------------------------------------------------------------
-
-    return render_template("index.html", rows=rows)
+    return render_template("index.html", rows=rows, avgSum=avgSum)
 
 # ROUTES (JSON ENDPOINTS) -------------------------------------------------------------------------------------
 
@@ -109,8 +114,3 @@ app.run(host=HOST, port=PORT)
 #       app.run(port=PORT, debug=True,use_reloader=True, host="0.0.0.0")
 #       Timer(1, open_browser).start()
 
-# UTILS ----------------------------------------------------------------
-
-
-
-# UTILS ----------------------------------------------------------------
