@@ -81,7 +81,6 @@ def index():
 
 # ROUTES (JSON ENDPOINTS) -------------------------------------------------------------------------------------
 
-# URL: http://127.0.0.1:8080/api/list
 @app.route('/api/json/all', methods=['GET'])
 def api_all():
     conn.row_factory = dict_factory
@@ -97,7 +96,7 @@ def api_filter():
     query_parameters = request.args
     id = query_parameters.get('id')
     weight = query_parameters.get('weight')
-    date_time = query_parameters.get('datetime')
+    date_time = query_parameters.get('timestamp')
     query = "SELECT * FROM weights WHERE"
     to_filter = []
     if id:
@@ -107,7 +106,7 @@ def api_filter():
         query += ' WEIGHT=? AND'
         to_filter.append(weight)
     if date_time:
-        query += ' DATE_TIME=? AND'
+        query += ' TIMESTAMP=? AND'
         to_filter.append(date_time)
     if not (id or weight or date_time):
         return page_not_found(404)
