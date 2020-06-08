@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <title>Dashboard</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <style>
+        body,
+        html {
+            color: white;
+            background-color: #3b3b3b;
+            box-sizing: border-box;
+            padding: 0;
+            margin: 0;
+        }
+        
+        #title {
+            min-height: 10vh;
+            position: relative;
+            background-color: #222222;
+        }
+        
+        .text-center-wrapper {
+            position: relative;
+        }
+        
+        .text-center {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+        
+        .column {
+            float: left;
+        }
+        
+        .left {
+            width: 20%;
+            min-height: 40vh;
+            outline: dashed red;
+        }
+        
+        .right {
+            width: 80%;
+            min-height: 60vh;
+            outline: dashed blue;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="title bg-dark text-center" id="title">
+        <h3 class="text-center text-white">Weight Calculator</h3>
+    </div>
+
+    <main>
+        <div class="column left text-center-wrapper">
+            <div class="text-center">
+                <h1>LEFT</h1>
+            </div>
+        </div>
+
+        <div class="column right text-center-wrapper">
+            <div class="text-center">
+                <h1>RIGHT</h1>
+            </div>
+        </div>
+    </main>
+</body>
+
+</html>
