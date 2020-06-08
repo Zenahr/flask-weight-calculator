@@ -48,6 +48,13 @@
             min-height: 60vh;
             outline: dashed blue;
         }
+        
+        .card {
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+            transition: 0.3s;
+            width: 40%;
+            border-radius: 5px;
+        }
     </style>
 </head>
 
@@ -59,8 +66,9 @@
 
     <main>
         <div class="column left text-center-wrapper">
-            <div class="text-center">
-                <h1>LEFT</h1>
+            <div class="entry">
+                <label for="entry">Weight:</label>
+                <input type="text" id="entry" placeholder="70.23" name="entry">
             </div>
         </div>
 
