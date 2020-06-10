@@ -1,5 +1,14 @@
 # flask-weight-calculator
 
+### Main
+![image](https://github.com/Zenahr/flask-weight-calculator/blob/ui/Design/MainScreen.jpg)
+
+### Data Center
+![image](https://github.com/Zenahr/flask-weight-calculator/blob/ui/Design/DataCenter.JPG)
+
+### Options
+![image](https://github.com/Zenahr/flask-weight-calculator/blob/ui/Design/Options.JPG)
+
 ## Design history
 
 ![image](https://github.com/Zenahr/flask-weight-calculator/blob/ui/Design/HiFi-Mockup.JPG)
