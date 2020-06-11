@@ -2,6 +2,14 @@
 
 <head>
     {% block head %}{% endblock %}
+
+    <style>
+        .card {}
+        
+        .card-blue {}
+        
+        .align-evenly {}
+    </style>
 </head>
 
 
@@ -48,11 +56,29 @@
 
         <h1>Main</h1>
 
-        <form action="">
-            <label for="weightValue">Weight</label>
-            <input type="text" id="weightValue" name="firstname" placeholder="76.25">
-            <input preventDefault(); type="submit" value="Submit">
-        </form>
+        <div class="weight-entry">
+            <form action="">
+                <label for="weightValue">Weight</label>
+                <input type="text" id="weightValue" name="firstname" placeholder="76.25">
+                <input preventDefault(); type="submit" value="Submit">
+            </form>
+        </div>
+
+        <div class="main-window align-evenly">
+            <div class="card card-blue"></div>
+            <div class="card card-blue"></div>
+            <div class="card card-blue"></div>
+
+            <div class="plot-container" id="plot">
+
+            </div>
+
+            <div class="status-window">
+                <div class="calendar">
+
+                </div>
+            </div>
+        </div>
 
 
 
