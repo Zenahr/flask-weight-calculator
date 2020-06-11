@@ -4,11 +4,20 @@
     {% block head %}{% endblock %}
 
     <style>
+        .weight-entry-wrapper {}
+        
         .weight-entry {
             width: 18vw;
-            padding: 10px;
+            padding: 12px 0px 0px 10px;
             outline: auto;
             background-color: cornflowerblue;
+            position: relative;
+        }
+        
+        .vertical-center {
+            display: table-cell;
+            vertical-align: middle;
+            text-align: center;
         }
         
         .card {
@@ -24,8 +33,14 @@
         #label {}
         
         .button {
-            background-color: red;
+            background-color: white;
+            padding: 8px 21px;
+            margin-left: 32px;
+            font-size: 14px;
+            transition: transform 0.3s ease;
         }
+        
+        .button:hover {}
         
         .card {}
         
@@ -76,11 +91,11 @@
 
         <h1>Main</h1>
 
-        <div class="weight-entry card">
+        <div class="weight-entry card vertical-center">
             <form action="">
                 <label id="label" for="weightValue floaty">Weight:</label>
                 <input id="value" class="" type="text" id="weightValue" name="weightValue" placeholder="00.00">
-                <input id="" class="button" preventDefault(); type="submit" value="Submit">
+                <input id="" class="button" preventDefault(); type="submit" value="+">
             </form>
         </div>
 
