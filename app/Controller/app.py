@@ -9,8 +9,12 @@ from config import Config
 
 # SETUP -------------------------------------------------------------------------------------
 
+print(os.path.abspath("../Model"))
+
 app=Flask(__name__)
 app.config.from_object(Config)
+DATABASE='../Model/databaseBig.db'
+
 # print(TEMPLATES_PATH)
 
 # SETUP -------------------------------------------------------------------------------------
@@ -52,7 +56,7 @@ conn = sqlite3.connect(DATABASE, check_same_thread=False)
 
 @app.route('/', methods = ['POST', 'GET'])
 def index():
-    con = sqlite3.connect("database.db")
+    con = sqlite3.connect(DATABASE)
     conn.row_factory = sqlite3.Row
 
     cur = conn.cursor()
@@ -135,7 +139,7 @@ def page_not_found(e):
 
 # ROUTES -------------------------------------------------------------------------------------
 
-app.run(host=HOST, port=PORT)
+app.run()
 
 # def open_browser():
       # webbrowser.open_new('http://127.0.0.1:' + PORT + '/')
