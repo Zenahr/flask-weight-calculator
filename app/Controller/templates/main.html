@@ -4,6 +4,29 @@
     {% block head %}{% endblock %}
 
     <style>
+        .weight-entry {
+            width: 18vw;
+            padding: 10px;
+            outline: auto;
+            background-color: cornflowerblue;
+        }
+        
+        .card {
+            box-shadow: 0px 3px 8px 0px rgba(0, 0, 0, 0.75);
+        }
+        
+        .floaty {
+            float: left;
+        }
+        
+        #value {}
+        
+        #label {}
+        
+        .button {
+            background-color: red;
+        }
+        
         .card {}
         
         .card-blue {}
@@ -14,7 +37,6 @@
 
 
 <body>
-    <!-- Navbar-->
     <nav class="navbar">
         <ul class="navbar-nav">
             <li class="logo">
@@ -50,17 +72,15 @@
         </ul>
     </nav>
 
-
-    <!-- Content -->
     <main>
 
         <h1>Main</h1>
 
-        <div class="weight-entry">
+        <div class="weight-entry card">
             <form action="">
-                <label for="weightValue">Weight:</label>
-                <input type="text" id="weightValue" name="weightValue" placeholder="00.00">
-                <input preventDefault(); type="submit" value="Submit">
+                <label id="label" for="weightValue floaty">Weight:</label>
+                <input id="value" class="" type="text" id="weightValue" name="weightValue" placeholder="00.00">
+                <input id="" class="button" preventDefault(); type="submit" value="Submit">
             </form>
         </div>
 
