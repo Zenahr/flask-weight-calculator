@@ -3,8 +3,11 @@ on Windows:
 command prompt:
 
 set FLASK_ENV=development
+set FLASK_DEBUG=1
 set FLASK_APP=Controller\app.py
 python -m flask run -h 192.168.1.63
 
 note: use your own local IPv4 address of your computer.
 On Windows: use ipconfig in command prompt to see your computer's address.
+
+livereload --host 192.168.1.63 -p 8080 app/controller/templates

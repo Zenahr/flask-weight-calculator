@@ -5,14 +5,18 @@ from flask import Flask, render_template, url_for, request, jsonify
 import sqlite3
 import time
 
+from config import Config
+
 # SETUP -------------------------------------------------------------------------------------
 
+print(os.path.abspath("../Model"))
+
 app=Flask(__name__)
-app.config["DEBUG"]=True
+app.config.from_object(Config)
+DATABASE='../Model/databaseBig.db'
 HOST="192.168.1.63"
 PORT="8080"
-TEMPLATES_PATH=os.path.join(os.getcwd(), "View")
-DATABASE='databaseBig.db'
+
 # print(TEMPLATES_PATH)
 
 # SETUP -------------------------------------------------------------------------------------
@@ -54,7 +58,7 @@ conn = sqlite3.connect(DATABASE, check_same_thread=False)
 
 @app.route('/', methods = ['POST', 'GET'])
 def index():
-    con = sqlite3.connect("database.db")
+    con = sqlite3.connect(DATABASE)
     conn.row_factory = sqlite3.Row
 
     cur = conn.cursor()
@@ -78,8 +82,19 @@ def index():
       finally:
          conn.close()
 
-    return render_template("index.html", rows=rows, avgSum=avgSum, msg = msg)
+    return render_template("main.html", rows=rows, avgSum=avgSum, msg = msg)
 
+@app.route('/data-center')
+def dataCenter():
+    return render_template("data-center.html")
+
+@app.route('/options')
+def options():
+    return render_template("options.html")
+
+@app.route('/about')
+def about():
+    return render_template("about.html")
 
 # ROUTES (JSON ENDPOINTS) -------------------------------------------------------------------------------------
 
