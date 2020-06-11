@@ -5,3 +5,4 @@ class Config(object):
     DEBUG = os.environ.get('DEBUG') or True
     TEMPLATES_PATH=os.path.join(os.getcwd(), "View")
     DATABASE='../Model/databaseBig.db'
+    FLASK_ENV='development'

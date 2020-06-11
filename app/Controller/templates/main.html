@@ -4,11 +4,9 @@
     {% block head %}{% endblock %}
 
     <style>
-        .weight-entry-wrapper {}
-        
         .weight-entry {
-            width: 18vw;
-            padding: 12px 0px 0px 10px;
+            width: 100%;
+            padding: 12px 12px 0px 10px;
             outline: auto;
             background-color: cornflowerblue;
             position: relative;
@@ -22,31 +20,85 @@
         
         .card {
             box-shadow: 0px 3px 8px 0px rgba(0, 0, 0, 0.75);
+            background: rgba(255, 213, 70, 0.4);
+            border: 2px dashed rgba(236, 198, 48, 0.5);
         }
         
-        .floaty {
-            float: left;
-        }
+        .card-blue {}
         
-        #value {}
+        #value {
+            padding: 10px 0;
+        }
         
         #label {}
         
         .button {
-            background-color: white;
-            padding: 8px 21px;
-            margin-left: 32px;
-            font-size: 14px;
-            transition: transform 0.3s ease;
+            color: rgb(230, 230, 230);
+            background-color: rgb(78, 78, 78);
+            border: none;
+            border-radius: 0;
+            transition: all .25s;
+            text-transform: uppercase;
+            font-family: 'Raleway', sans-serif;
+            font-size: 42px;
+            padding: 0px 20px;
         }
         
-        .button:hover {}
-        
-        .card {}
-        
-        .card-blue {}
+        .button:hover {
+            color: rgb(230, 230, 230);
+            background-color: rgb(42, 42, 42);
+        }
         
         .align-evenly {}
+        
+        .container {
+            display: grid;
+            border: 2px dashed rgba(114, 186, 94, 0.35);
+            height: 250px;
+            grid-template-columns: auto;
+            grid-template-rows: 1fr 1fr 1fr;
+            background: rgba(114, 186, 94, 0.05);
+        }
+        
+        .item {
+            background: rgba(255, 213, 70, 0.4);
+            border: 2px dashed rgba(236, 198, 48, 0.5);
+        }
+        
+        .main-window {
+            width: auto;
+            height: 50vh;
+        }
+        
+        .card-blue {
+            background-color: cornflowerblue;
+            width: 300px;
+            height: 150px;
+        }
+        
+        .flex-container {
+            height: auto;
+            padding: 0;
+            margin: 0;
+            display: -webkit-box;
+            display: -moz-box;
+            display: -ms-flexbox;
+            display: -webkit-flex;
+            display: flex;
+            justify-content: center;
+        }
+        
+        .row {
+            width: auto;
+            border: 1px dashed rgba(0, 0, 255, 0.418);
+        }
+        
+        .flex-item {
+            margin: 0 100px;
+            line-height: 20px;
+            color: white;
+            text-align: center;
+        }
     </style>
 </head>
 
@@ -93,16 +145,33 @@
 
         <div class="weight-entry card vertical-center">
             <form action="">
-                <label id="label" for="weightValue floaty">Weight:</label>
-                <input id="value" class="" type="text" id="weightValue" name="weightValue" placeholder="00.00">
-                <input id="" class="button" preventDefault(); type="submit" value="+">
+                <div class="item">
+                    <label id="label" for="weightValue floaty">Weight:</label>
+                </div>
+                <div class="item">
+                    <input id="value" class="" type="text" id="weightValue" name="weightValue" placeholder="00.00">
+                </div>
+                <div class="item">
+                    <input id="" class="button" preventDefault(); type="submit" value="+">
+                </div>
             </form>
         </div>
 
-        <div class="main-window align-evenly">
-            <div class="card card-blue"></div>
-            <div class="card card-blue"></div>
-            <div class="card card-blue"></div>
+
+
+        <div class="main-window card align-evenly">
+            <div class="flex-container">
+
+                <div class="row">
+                    <div class="flex-item card card-blue"></div>
+                </div>
+                <div class="row">
+                    <div class="flex-item card card-blue"></div>
+                </div>
+                <div class="row">
+                    <div class="flex-item card card-blue"></div>
+                </div>
+            </div>
 
             <div class="plot-container" id="plot">
 
