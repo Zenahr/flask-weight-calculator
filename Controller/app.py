@@ -78,8 +78,19 @@ def index():
       finally:
          conn.close()
 
-    return render_template("index.html", rows=rows, avgSum=avgSum, msg = msg)
+    return render_template("main.html", rows=rows, avgSum=avgSum, msg = msg)
 
+@app.route('/data-center')
+def dataCenter():
+    return render_template("data-center.html")
+
+@app.route('/options')
+def options():
+    return render_template("options.html")
+
+@app.route('/about')
+def about():
+    return render_template("about.html")
 
 # ROUTES (JSON ENDPOINTS) -------------------------------------------------------------------------------------
 
