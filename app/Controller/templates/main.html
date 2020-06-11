@@ -99,6 +99,12 @@
             color: white;
             text-align: center;
         }
+        
+        .status-window {
+            background-color: black;
+            width: 20vw;
+            height: 30vh;
+        }
     </style>
 </head>
 
@@ -143,7 +149,7 @@
 
         <h1>Main</h1>
 
-        <div class="weight-entry card vertical-center">
+        <!-- <div class="weight-entry card vertical-center">
             <form action="">
                 <div class="item">
                     <label id="label" for="weightValue floaty">Weight:</label>
@@ -155,35 +161,40 @@
                     <input id="" class="button" preventDefault(); type="submit" value="+">
                 </div>
             </form>
+        </div> -->
+
+
+        <div class="flex-container">
+            <div class="row">
+
+                <div class="flex-item">
+                    <div class="main-window card align-evenly">
+                        <div class="flex-container">
+
+                            <div class="row">
+                                <div class="flex-item card card-blue"></div>
+                            </div>
+                            <div class="row">
+                                <div class="flex-item card card-blue"></div>
+                            </div>
+                            <div class="row">
+                                <div class="flex-item card card-blue"></div>
+                            </div>
+                        </div>
+                        <div class="plot-container" id="plot">
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="flex-item">
+                    <div class="status-window">
+                        <div class="calendar">
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-
-
-
-        <div class="main-window card align-evenly">
-            <div class="flex-container">
-
-                <div class="row">
-                    <div class="flex-item card card-blue"></div>
-                </div>
-                <div class="row">
-                    <div class="flex-item card card-blue"></div>
-                </div>
-                <div class="row">
-                    <div class="flex-item card card-blue"></div>
-                </div>
-            </div>
-
-            <div class="plot-container" id="plot">
-
-            </div>
-
-            <div class="status-window">
-                <div class="calendar">
-
-                </div>
-            </div>
-        </div>
-
 
 
     </main>
