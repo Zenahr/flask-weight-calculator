@@ -5,14 +5,12 @@ from flask import Flask, render_template, url_for, request, jsonify
 import sqlite3
 import time
 
+from config import Config
+
 # SETUP -------------------------------------------------------------------------------------
 
 app=Flask(__name__)
-app.config["DEBUG"]=True
-HOST="192.168.1.63"
-PORT="8080"
-TEMPLATES_PATH=os.path.join(os.getcwd(), "View")
-DATABASE='databaseBig.db'
+app.config.from_object(Config)
 # print(TEMPLATES_PATH)
 
 # SETUP -------------------------------------------------------------------------------------
