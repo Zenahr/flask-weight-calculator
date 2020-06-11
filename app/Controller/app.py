@@ -14,6 +14,8 @@ print(os.path.abspath("../Model"))
 app=Flask(__name__)
 app.config.from_object(Config)
 DATABASE='../Model/databaseBig.db'
+HOST="192.168.1.63"
+PORT="8080"
 
 # print(TEMPLATES_PATH)
 
@@ -139,7 +141,7 @@ def page_not_found(e):
 
 # ROUTES -------------------------------------------------------------------------------------
 
-app.run()
+app.run(host=HOST, port=PORT)
 
 # def open_browser():
       # webbrowser.open_new('http://127.0.0.1:' + PORT + '/')
