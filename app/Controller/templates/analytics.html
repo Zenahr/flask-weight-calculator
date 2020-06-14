@@ -62,7 +62,7 @@
                 success: function(data) {
                     weights = []
                     $.each(data, function(i, item) {
-                        weights += item.weight
+                        weights.push(item.weight)
                     });
                     console.table(weights)
                 },
