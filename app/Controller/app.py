@@ -96,6 +96,10 @@ def options():
 def about():
     return render_template("about.html")
 
+@app.route('/analytics')
+def analytics():
+    return render_template("analytics.html")
+
 # ROUTES (JSON ENDPOINTS) -------------------------------------------------------------------------------------
 
 @app.route('/api/json/all', methods=['GET'])
