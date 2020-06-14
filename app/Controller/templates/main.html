@@ -1,83 +1,15 @@
-{% include "head.html" %}
+{% include "head.html" %} {% include "navbar.html" %}
 
 <head>
     {% block head %}{% endblock %}
 
-    <style>
-        .weight-entry {
-            width: 100%;
-            padding: 12px 12px 0px 10px;
-            outline: auto;
-            background-color: cornflowerblue;
-            position: relative;
-        }
-        
-        .vertical-center {
-            display: table-cell;
-            vertical-align: middle;
-            text-align: center;
-        }
-        
-        .button {
-            color: rgb(230, 230, 230);
-            background-color: rgb(78, 78, 78);
-            border: none;
-            border-radius: 0;
-            transition: all .25s;
-            text-transform: uppercase;
-            font-family: 'Raleway', sans-serif;
-            font-size: 42px;
-            padding: 0px 20px;
-        }
-        
-        .button:hover {
-            color: rgb(230, 230, 230);
-            background-color: rgb(42, 42, 42);
-        }
-    </style>
 </head>
 
-
 <body>
-    <nav class="navbar">
-        <ul class="navbar-nav">
-            <li class="logo">
-                <a href="{{ url_for('index') }}" class="nav-link active">
-                    <!-- <span class="link-text logo-text">Home</span> -->
-                    <img src="{{ url_for('static', filename='main.svg') }}" alt="" srcset="">
-                </a>
-            </li>
-
-            <li class="logo">
-                <a href="{{ url_for('dataCenter') }}" class="nav-link">
-                    <!-- <span class="link-text logo-text">Data Center</span> -->
-                    <img src="{{ url_for('static', filename='data-server.svg') }}" alt="" srcset="">
-                </a>
-            </li>
-
-            <li class="logo">
-                <a href="{{ url_for('options') }}" class="nav-link">
-                    <!-- <span class="link-text logo-text">Options</span> -->
-                    <img src="{{ url_for('static', filename='options.svg') }}" alt="" srcset="">
-                </a>
-            </li>
-
-            <li class="logo">
-                <a href="{{ url_for('about') }}" class="nav-link">
-                    <!-- <span class="link-text logo-text">About</span> -->
-                    <img src="{{ url_for('static', filename='info.svg') }}" alt="" srcset="">
-                </a>
-            </li>
-
-            <!-- More nav links here -->
-
-        </ul>
-    </nav>
 
     <main>
 
-        <h1 id="main_title">Main</h1>
-
+        <h1>Main</h1>
         <div class="weight-entry card vertical-center">
             <form action="">
                 <div class="item">
@@ -91,40 +23,5 @@
                 </div>
             </form>
         </div>
-
-
-        <div class="flex-container">
-            <div class="row">
-
-                <div class="flex-item">
-                    <div class="main-window card align-evenly">
-                        <div class="flex-container">
-
-                            <div class="row">
-                                <div class="flex-item card card-blue"></div>
-                            </div>
-                            <div class="row">
-                                <div class="flex-item card card-blue"></div>
-                            </div>
-                            <div class="row">
-                                <div class="flex-item card card-blue"></div>
-                            </div>
-                        </div>
-                        <div class="plot-container" id="plot">
-                        </div>
-                    </div>
-                </div>
-
-
-                <div class="flex-item">
-                    <div class="status-window">
-                        <div class="calendar">
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-
     </main>
 </body>
