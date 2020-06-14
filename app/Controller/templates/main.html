@@ -55,6 +55,7 @@
             display: grid;
             border: 2px dashed rgba(114, 186, 94, 0.35);
             height: 250px;
+            max-width: 100vw;
             grid-template-columns: auto;
             grid-template-rows: 1fr 1fr 1fr;
             background: rgba(114, 186, 94, 0.05);
@@ -110,7 +111,44 @@
         
         @media only screen and (max-width: 600px) {
             .flex-container {
-                flex-direction: column;
+                width: 100vw;
+                height: auto;
+                padding: 0;
+                margin: 0 0 0 0;
+                display: -webkit-box;
+                display: -moz-box;
+                display: -ms-flexbox;
+                display: -webkit-flex;
+                display: block;
+                justify-content: center;
+            }
+            .main-window {
+                width: auto;
+                height: 100vh;
+            }
+            .card-blue {
+                background-color: cornflowerblue;
+                width: 40vw;
+                height: 20vh;
+            }
+            .row {
+                width: auto;
+                border: 1px dashed rgba(0, 0, 255, 0.418);
+                height: 20vh;
+            }
+            .flex-item {
+                margin: 0;
+                line-height: 20px;
+                color: white;
+                text-align: center;
+            }
+            .status-window {
+                background-color: black;
+                width: 100vw;
+                height: 30vh;
+            }
+            #main_title {
+                visibility: hidden;
             }
         }
         /* Large screens */
@@ -170,7 +208,7 @@
 
     <main>
 
-        <h1>Main</h1>
+        <h1 id="main_title">Main</h1>
 
         <!-- <div class="weight-entry card vertical-center">
             <form action="">
