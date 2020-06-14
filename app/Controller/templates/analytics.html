@@ -20,12 +20,30 @@
 
     <script>
         $(document).ready(function() {
+            weights = []
+
+            $.ajax({
+                type: "GET",
+                url: "http://192.168.1.63:8080/api/json/all",
+                dataType: 'json',
+                success: function(data) {
+                    $.each(data, function(i, item) {
+                        weights.push(item.weight)
+                    });
+                },
+                error: function(error) {
+                    console.log("Here is the error res: " + JSON.stringify(error));
+                }
+            });
+
+            console.table(weights)
+
             var data = {
                 // A labels array that can contain any sort of values
                 labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri'],
                 // Our series array that contains series objects or in this case series data arrays
                 series: [
-                    [70, 2, 4, 2, 0]
+                    weights
                 ]
             };
 
@@ -37,39 +55,33 @@
 
         function getWeights() {
             console.log("GETTING WEIGHTS")
-
-            $.each(response, function(i, item) {
-                var $tr = $('#table').append(
-                    '<tr id="table"> \
-                    <td>' + (item.id) + '</td> \
-                    <td>' + (item.weight) + " kg" + '</td> \
-                    <td>' + (item.timestamp) + '</td> \
-                    </tr>'
-                ).appendTo('#table');
-            });
-            // Get data via AJAX
-
-            // Keep weights only
-
-            // Result should be an array of values.
+                // Get data via AJAX
+            return ajaxCall()
         }
 
-        $(document).ready(function() {
+        function ajaxCall() {
+            weights = []
             $.ajax({
                 type: "GET",
                 url: "http://192.168.1.63:8080/api/json/all",
                 dataType: 'json',
                 success: function(data) {
-                    weights = []
                     $.each(data, function(i, item) {
                         weights.push(item.weight)
                     });
-                    console.table(weights)
+                    // console.table(weights)
                 },
                 error: function(error) {
                     console.log("Here is the error res: " + JSON.stringify(error));
                 }
+
             });
+            return weights
+        };
+
+        $(document).ready(function() {
+            data = ajaxCall()
+            console.table(data)
         });
     </script>
 </body>
