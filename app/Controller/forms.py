@@ -1,6 +1,19 @@
-from flask_wtf import FlaskForm
-from wtforms import StringField
-from wtforms.validators import DataRequired
+from wtforms import Form, IntegerField, FloatField
+from wtforms.validators import InputRequired
 
-class ContactForm(FlaskForm):
-    name = StringField('name', validators=[DataRequired()])
+# ✅
+class weightValueForm(Form):
+    weightValue = FloatField('Amount', validators=[InputRequired()])
+
+# ✅
+class goalWeightForm(Form):
+    goalWeight = FloatField('Amount', validators=[InputRequired()])
+
+
+
+# Test ----------------------------------------------------------------------------
+
+form = weightValueForm()
+form.process(weightValueForm=2.0)
+form.validate()
+print(form.errors)
