@@ -1,13 +1,21 @@
-from flask import Flask, url_for, render_template, redirect
-from forms import ContactForm
+from flask import Flask, url_for, render_template, redirect, flash
+from forms import LoginForm
+from config import Config
+import os
 
 app = Flask(__name__, instance_relative_config=False)
-app.config.from_object('config.Config')
+SECRET_KEY = os.urandom(32)
+app.config['SECRET_KEY'] = SECRET_KEY
+# app.config.from_object('config')
 
 
-@app.route('/', methods=('GET', 'POST'))
-def contact():
-    form = ContactForm()
+@app.route('/', methods=['GET', 'POST'])
+def login():
+    form = LoginForm()
     if form.validate_on_submit():
-        return redirect(url_for('success'))
-    return render_template('index.html', form=form)
+        flash('Login requested for user {}, remember_me={}'.format(
+            form.username.data, form.remember_me.data))
+        return redirect('/')
+    return render_template('login.html', title='Sign In', form=form)
+
+app.run()
