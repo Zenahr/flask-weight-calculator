@@ -1,0 +1,48 @@
+{% block table %}
+<table id="table">
+    <thead>
+        <tr>
+            <th>Entry Index</th>
+            <th>Weight</th>
+            <th>Date</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td id="index"></td>
+            <td id="weight"></td>
+            <td id="timestamp"></td>
+        </tr>
+    </tbody>
+</table>
+
+<script>
+    $(document).ready(function() {
+        $.ajax({
+            type: "GET",
+            url: "http://192.168.1.63:8080/api/json/all",
+            dataType: 'json',
+            success: function(data) {
+                console.log(data)
+                fillTable(data)
+                $('#table').DataTable();
+            },
+            error: function(error) {
+                console.log("Here is the error res: " + JSON.stringify(error));
+            }
+        });
+    });
+
+    function fillTable(response) {
+        $.each(response, function(i, item) {
+            var $tr = $('#table').append(
+                '<tr id="table"> \
+                <td>' + (item.id) + '</td> \
+                <td>' + (item.weight) + " kg" + '</td> \
+                <td>' + (item.timestamp) + '</td> \
+                </tr>'
+            ).appendTo('#table');
+        });
+    }
+</script>
+{% endblock table %}
