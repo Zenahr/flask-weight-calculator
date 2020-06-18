@@ -7,12 +7,6 @@ class weightValueForm(Form):
     weightValue = FloatField('Weight', validators=[InputRequired()])
 
     def validate_weightValue(self, weightValue):
-        
-        
-
-        # sanitize , -> .
-        if "," in weightValue and not isinstance(weightValue, int) or isinstance(weightValue, float):
-            value = weightValue.replace(',','.')
 
         """regex for all possible numbers"""
         regex_list = [
@@ -26,9 +20,9 @@ class weightValueForm(Form):
         
         #regex
         for regex in regex_list:
-            match = re.search(regex, value)
+            match = re.search(regex, weightValue)
             if match:
-                return value
+                return weightValue
             else:
                 raise ValidationError("bad input")
 
@@ -48,6 +42,9 @@ class goalWeightForm(Form):
 
 def validate_weightValue(weightValue):
     """regex for all possible numbers"""
+
+    weightValue = str(weightValue)
+
     regex_list = [
         r'^\d\d\d.\d\d$', # 000.00
         r'^\d\d\d.\d$',   # 000.0
@@ -57,15 +54,13 @@ def validate_weightValue(weightValue):
         r'^\d\d$'        # 00
     ]
 
-    # sanitize , -> .
-    value = weightValue.replace(',','.')
-
     #regex
     for regex in regex_list:
-        match = re.search(regex, value)
-        if match:
-            return value
-        else:
-            raise ValidationError("bad input")
+        match = re.search(regex, weightValue)
+        if match and not len(weightValue) > 5:
+            print("match")
+            return weightValue
+    print("no match")
+    raise ValidationError("bad input")
 
-validate_weightValue(90)
+validate_weightValue(9000)
