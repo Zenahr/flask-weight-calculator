@@ -125,20 +125,3 @@ main {
         margin: 0;
     }
 }
-
-
-/* Large screens */
-
-@media only screen and (min-width: 600px) {
-    .navbar {
-        top: 0;
-        width: 5rem;
-        height: 100vh;
-    }
-    .navbar:hover .link-text {
-        display: inline;
-    }
-    .navbar:hover .logo-text {
-        left: 0px;
-    }
-}
