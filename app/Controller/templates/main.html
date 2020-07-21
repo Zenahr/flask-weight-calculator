@@ -25,7 +25,7 @@
                     url: "http://192.168.1.63:8080/api/json/lastfifty",
                     dataType: 'json',
                     success: function(data) {
-                        plotInit(data)
+                        plotInit(getPlotData(data))
                         console.log(data)
                         fillTable(data)
                         $('#table').DataTable();
@@ -36,7 +36,33 @@
                 });
             });
 
-            function plotDataMaker(data) {
+            function getJson() {
+                fetch('http://192.168.1.63:8080/api/json/lastfifty').then(function(response) {
+                    // The API call was successful!
+                    return response.json();
+                }).then(function(data) {
+                    // This is the JSON from our response
+                    console.log(data);
+                }).catch(function(err) {
+                    // There was an error
+                    console.warn('Something went wrong.', err);
+                });
+
+            }
+
+            function getPlotData(data) {
+                var i;
+                let arr = Array(10)
+                for (i = 0; i < data.length; i++) {
+                    arr[i] = {
+                        "weight": data[i]['weight'],
+                        "date": new Date(data[i]['timestamp'] * 1000)
+                    }
+                }
+                return arr
+            }
+
+            function getWeights(data) {
                 var i;
                 let arr = Array(10)
                 for (i = 0; i < data.length; i++) {
@@ -45,21 +71,20 @@
                 return arr
             }
 
-            [{
-                "id": 500,
-                "timestamp": 1587466538,
-                "weight": 67.84
-            }, {
-                "id": 499,
-                "timestamp": 1590199288,
-                "weight": 81.41
-            }]
+            function getTimestamps(data) {
+                var i;
+                let arr = Array(10)
+                for (i = 0; i < data.length; i++) {
+                    arr[i] = new Date(data[i]['timestamp'] * 1000)
+                }
+                return arr
+            }
 
             function plotInit(data) {
                 TESTER = document.getElementById('tester');
                 Plotly.newPlot(TESTER, [{
-                    //x: [1, 2, 3, 4, 5],
-                    y: plotDataMaker(data)
+                    x: getTimestamps(data),
+                    y: getWeights(data)
                 }], {
                     margin: {
                         t: 0
