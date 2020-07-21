@@ -10,7 +10,53 @@
 
 <body>
     <main>
-        {% block weightEntry %} {% endblock weightEntry %} {% block navbar %} {% endblock navbar %}
+        {% block weightEntry %} {% endblock weightEntry %}
+
+        <div id="tester" style="width:600px;height:250px;"></div>
+
+        <script>
+            $(document).ready(function() {
+                plotInit();
+                $.ajax({
+                    type: "GET",
+                    url: "http://192.168.1.63:8080/api/json/all",
+                    dataType: 'json',
+                    success: function(data) {
+                        console.log(data)
+                        fillTable(data)
+                        $('#table').DataTable();
+                    },
+                    error: function(error) {
+                        console.log("Here is the error res: " + JSON.stringify(error));
+                    }
+                });
+            });
+
+            function plotInit() {
+                TESTER = document.getElementById('tester');
+                Plotly.newPlot(TESTER, [{
+                    x: [1, 2, 3, 4, 5],
+                    y: [1, 2, 4, 8, 16]
+                }], {
+                    margin: {
+                        t: 0
+                    }
+                });
+            }
+
+            function fillTable(response) {
+                $.each(response, function(i, item) {
+                    var $tr = $('#table').append(
+                        '<tr id="table"> \
+                <td>' + (item.id) + '</td> \
+                <td>' + (item.weight) + " kg" + '</td> \
+                <td>' + (item.timestamp) + '</td> \
+                </tr>'
+                    ).appendTo('#table');
+                });
+            }
+        </script>
+        {% block navbar %} {% endblock navbar %}
     </main>
 
     <script>
