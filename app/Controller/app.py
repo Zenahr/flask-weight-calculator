@@ -81,7 +81,6 @@ def index():
          msg = "error in insert operation"
       finally:
          conn.close()
-
     return render_template("main.html", rows=rows, avgSum=avgSum, msg = msg)
 
 @app.route('/data-center')

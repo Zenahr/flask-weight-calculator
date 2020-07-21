@@ -10,8 +10,8 @@
 
 <body>
     <main>
+        <h1>{{msg}}</h1>
         {% block weightEntry %} {% endblock weightEntry %}
-
         <div id="tester"></div>
         <div id="debug"></div>
 
@@ -70,14 +70,36 @@
 
             function plotInit(data) {
                 TESTER = document.getElementById('tester');
-                Plotly.newPlot(TESTER, [{
-                    y: [1, 2, 3, 4, 5],
+
+                traces = [{
+                    y: getWeights(data),
                     x: getTimestamps(data),
-                }], {
-                    margin: {
-                        t: 0
+
+                    name: '',
+
+                    mode: 'lines+markers',
+
+                    // Styling of the markers or symbols
+                    marker: {
+                        color: 'green',
+                        symbol: 'circle',
+                        size: 12,
+
+                        // Styling of the boundary lines around markers
+                        line: {
+                            color: 'green',
+                            width: 2
+                        }
+                    },
+
+                    // styling of the line plot
+                    line: {
+                        color: 'green',
+                        width: 2,
                     }
-                });
+                }]
+
+                Plotly.newPlot(TESTER, traces);
             }
 
             function fillTable(response) {
