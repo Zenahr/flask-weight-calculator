@@ -109,6 +109,13 @@ def api_all():
     all_books = cur.execute('SELECT * FROM weights;').fetchall()
     return jsonify(all_books)
 
+@app.route('/api/json/lastfifty', methods=['GET'])
+def api_fifty():
+    conn.row_factory = dict_factory
+    cur = conn.cursor()
+    all_books = cur.execute('SELECT * FROM weights order by id desc limit 50;').fetchall()
+    return jsonify(all_books)
+
 
 # Example use: http://127.0.0.1:8080/api/items?id=1
 # Example use: http://127.0.0.1:8080/api/items?weight=70,21
