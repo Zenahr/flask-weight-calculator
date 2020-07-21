@@ -10,7 +10,101 @@
 
 <body>
     <main>
-        {% block weightEntry %} {% endblock weightEntry %} {% block navbar %} {% endblock navbar %}
+        {% block weightEntry %} {% endblock weightEntry %}
+
+        <div id="tester"></div>
+        <div id="debug"></div>
+
+        <script>
+            $(document).ready(function() {
+
+                DEBUG = document.getElementById('debug')
+
+                $.ajax({
+                    type: "GET",
+                    url: "http://192.168.1.63:8080/api/json/lastfifty",
+                    dataType: 'json',
+                    success: function(data) {
+                        plotInit(getPlotData(data))
+                        console.log(data)
+                        fillTable(data)
+                        $('#table').DataTable();
+                    },
+                    error: function(error) {
+                        console.log("Here is the error res: " + JSON.stringify(error));
+                    }
+                });
+            });
+
+            function getJson() {
+                fetch('http://192.168.1.63:8080/api/json/lastfifty').then(function(response) {
+                    // The API call was successful!
+                    return response.json();
+                }).then(function(data) {
+                    // This is the JSON from our response
+                    console.log(data);
+                }).catch(function(err) {
+                    // There was an error
+                    console.warn('Something went wrong.', err);
+                });
+
+            }
+
+            function getPlotData(data) {
+                var i;
+                let arr = Array(10)
+                for (i = 0; i < data.length; i++) {
+                    arr[i] = {
+                        "weight": data[i]['weight'],
+                        "date": new Date(data[i]['timestamp'] * 1000)
+                    }
+                }
+                return arr
+            }
+
+            function getWeights(data) {
+                var i;
+                let arr = Array(10)
+                for (i = 0; i < data.length; i++) {
+                    arr[i] = data[i]['weight']
+                }
+                return arr
+            }
+
+            function getTimestamps(data) {
+                var i;
+                let arr = Array(10)
+                for (i = 0; i < data.length; i++) {
+                    arr[i] = new Date(data[i]['timestamp'] * 1000)
+                }
+                return arr
+            }
+
+            function plotInit(data) {
+                TESTER = document.getElementById('tester');
+                Plotly.newPlot(TESTER, [{
+                    x: getTimestamps(data),
+                    y: getWeights(data)
+                }], {
+                    margin: {
+                        t: 0
+                    }
+                });
+            }
+
+            function fillTable(response) {
+                $.each(response, function(i, item) {
+                    var $tr = $('#table').append(
+                        '<tr id="table"> \
+                <td>' + (item.id) + '</td> \
+                <td>' + (item.weight) + " kg" + '</td> \
+                <td>' + (item.timestamp) + '</td> \
+                </tr>'
+                    ).appendTo('#table');
+                });
+            }
+        </script>
+        {% block navbar %} {% endblock navbar %}
     </main>
 
     <script>
