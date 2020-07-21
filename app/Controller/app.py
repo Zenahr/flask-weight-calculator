@@ -113,7 +113,7 @@ def api_all():
 def api_fifty():
     conn.row_factory = dict_factory
     cur = conn.cursor()
-    all_books = cur.execute('SELECT * FROM weights order by id desc limit 50;').fetchall()
+    all_books = cur.execute('SELECT * FROM weights order by timestamp desc limit 50;').fetchall()
     return jsonify(all_books)
 
 
